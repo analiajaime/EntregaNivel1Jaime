@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkcalendar import DateEntry
 
-# MODELO
+# *****************MODELO********************
 operadores = []
 
 def agregar_operador_modelo(registro, nombre, categoria, direccion, telefono, email, fecha_alta, fecha_baja, situacion, comentarios):
@@ -47,7 +47,7 @@ def actualizar_operador_modelo(indice, registro, nombre, categoria, direccion, t
         return True
     return False
 
-# CONTROLADOR
+# **********************CONTROLADOR******************************
 def agregar_operador():
     registro = entry_registro.get()
     nombre = entry_nombre.get()
@@ -128,20 +128,18 @@ def seleccionar_operador(event):
 
 # VISTA
 def limpiar_campos():
-    """Esta función se asegura de limpiar correctamente todos los campos"""
     entry_registro.delete(0, tk.END)
     entry_nombre.delete(0, tk.END)
     combo_categoria.set("")
     entry_direccion.delete(0, tk.END)
     entry_telefono.delete(0, tk.END)
     entry_email.delete(0, tk.END)
-    entry_fecha_alta.set_date("")  # Limpia el campo de fecha
-    entry_fecha_baja.set_date("")  # Limpia el campo de fecha
+    entry_fecha_alta.set_date("")  
+    entry_fecha_baja.set_date("")  
     combo_situacion.set("")
     entry_comentarios.delete(0, tk.END)
 
 def actualizar_lista():
-    """Actualiza la tabla de operadores, ajustando el ancho de cada columna"""
     lista_operadores.delete(*lista_operadores.get_children())
     for idx, operador in enumerate(operadores):
         lista_operadores.insert("", "end", values=(
@@ -149,7 +147,7 @@ def actualizar_lista():
             operador["Email"], operador["Fecha Alta"], operador["Fecha Baja"], operador["Situación"], operador["Comentarios"]
         ))
 
-    # Ajustar el ancho de las columnas para que todas sean visibles
+    
     lista_operadores.column("#", width=30)
     lista_operadores.column("Registro", width=80)
     lista_operadores.column("Nombre", width=120)
@@ -162,7 +160,7 @@ def actualizar_lista():
     lista_operadores.column("Situación", width=100)
     lista_operadores.column("Comentarios", width=150)
 
-# Salir con la tecla 'ESC'
+# Salir de la aplicación
 def salir(event):
     root.quit()
 
@@ -172,7 +170,7 @@ root.title("Registro de Operadores de Cambio")
 
 # Establecer color de fondo y tamaño de ventana
 root.configure(bg="lightblue") # Color de fondo
-root.geometry("1200x800")  # Ancho x Alto 
+root.geometry("1000x600")  # Ancho x Alto 
 
 # Asignar la tecla 'ESC' para salir
 root.bind('<Escape>', salir) # Salir con la tecla 'ESC'
