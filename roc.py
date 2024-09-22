@@ -4,7 +4,6 @@ from tkinter import ttk
 from tkcalendar import DateEntry
 
 # MODELO
-
 operadores = []
 
 def agregar_operador_modelo(registro, nombre, categoria, direccion, telefono, email, fecha_alta, fecha_baja, situacion, comentarios):
@@ -129,18 +128,20 @@ def seleccionar_operador(event):
 
 # VISTA
 def limpiar_campos():
+    """Esta función se asegura de limpiar correctamente todos los campos"""
     entry_registro.delete(0, tk.END)
     entry_nombre.delete(0, tk.END)
     combo_categoria.set("")
     entry_direccion.delete(0, tk.END)
     entry_telefono.delete(0, tk.END)
     entry_email.delete(0, tk.END)
-    entry_fecha_alta.set_date("")
-    entry_fecha_baja.set_date("")
+    entry_fecha_alta.set_date("")  # Limpia el campo de fecha
+    entry_fecha_baja.set_date("")  # Limpia el campo de fecha
     combo_situacion.set("")
     entry_comentarios.delete(0, tk.END)
 
 def actualizar_lista():
+    """Actualiza la tabla de operadores, ajustando el ancho de cada columna"""
     lista_operadores.delete(*lista_operadores.get_children())
     for idx, operador in enumerate(operadores):
         lista_operadores.insert("", "end", values=(
@@ -148,56 +149,84 @@ def actualizar_lista():
             operador["Email"], operador["Fecha Alta"], operador["Fecha Baja"], operador["Situación"], operador["Comentarios"]
         ))
 
+    # Ajustar el ancho de las columnas para que todas sean visibles
+    lista_operadores.column("#", width=30)
+    lista_operadores.column("Registro", width=80)
+    lista_operadores.column("Nombre", width=120)
+    lista_operadores.column("Categoría", width=80)
+    lista_operadores.column("Dirección", width=150)
+    lista_operadores.column("Teléfono", width=100)
+    lista_operadores.column("Email", width=150)
+    lista_operadores.column("Fecha Alta", width=80)
+    lista_operadores.column("Fecha Baja", width=80)
+    lista_operadores.column("Situación", width=100)
+    lista_operadores.column("Comentarios", width=150)
+
+# Salir con la tecla 'ESC'
+def salir(event):
+    root.quit()
+
 # Configuración de la ventana principal
 root = tk.Tk()
 root.title("Registro de Operadores de Cambio")
 
-# Etiquetas y entradas para el formulario
-frame_formulario = tk.Frame(root)
-frame_formulario.pack(pady=10)
+# Establecer color de fondo y tamaño de ventana
+root.configure(bg="lightblue") # Color de fondo
+root.geometry("1200x800")  # Ancho x Alto 
 
-tk.Label(frame_formulario, text="Registro").grid(row=0, column=0, padx=10, pady=5)
+# Asignar la tecla 'ESC' para salir
+root.bind('<Escape>', salir) # Salir con la tecla 'ESC'
+
+# Configurar el diseño de la grilla con 3 columnas para el formulario
+frame_formulario = tk.Frame(root, bg="lightblue")
+frame_formulario.pack(pady=10) # Espacio entre los elementos
+
+# Primera columna
+tk.Label(frame_formulario, text="Registro", bg="lightblue").grid(row=0, column=0, padx=10, pady=5)
 entry_registro = tk.Entry(frame_formulario)
 entry_registro.grid(row=0, column=1, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Nombre").grid(row=1, column=0, padx=10, pady=5)
+tk.Label(frame_formulario, text="Nombre", bg="lightblue").grid(row=1, column=0, padx=10, pady=5)
 entry_nombre = tk.Entry(frame_formulario)
 entry_nombre.grid(row=1, column=1, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Categoría").grid(row=2, column=0, padx=10, pady=5)
+tk.Label(frame_formulario, text="Categoría", bg="lightblue").grid(row=2, column=0, padx=10, pady=5)
 combo_categoria = ttk.Combobox(frame_formulario, values=["Casa", "Agencia"])
 combo_categoria.grid(row=2, column=1, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Dirección").grid(row=3, column=0, padx=10, pady=5)
+# Segunda columna
+tk.Label(frame_formulario, text="Dirección", bg="lightblue").grid(row=0, column=2, padx=10, pady=5)
 entry_direccion = tk.Entry(frame_formulario)
-entry_direccion.grid(row=3, column=1, padx=10, pady=5)
+entry_direccion.grid(row=0, column=3, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Teléfono").grid(row=4, column=0, padx=10, pady=5)
+tk.Label(frame_formulario, text="Teléfono", bg="lightblue").grid(row=1, column=2, padx=10, pady=5)
 entry_telefono = tk.Entry(frame_formulario)
-entry_telefono.grid(row=4, column=1, padx=10, pady=5)
+entry_telefono.grid(row=1, column=3, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Email").grid(row=5, column=0, padx=10, pady=5)
+tk.Label(frame_formulario, text="Email", bg="lightblue").grid(row=2, column=2, padx=10, pady=5)
 entry_email = tk.Entry(frame_formulario)
-entry_email.grid(row=5, column=1, padx=10, pady=5)
+entry_email.grid(row=2, column=3, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Fecha Alta").grid(row=6, column=0, padx=10, pady=5)
+# Tercera columna
+tk.Label(frame_formulario, text="Fecha Alta", bg="lightblue").grid(row=0, column=4, padx=10, pady=5)
 entry_fecha_alta = DateEntry(frame_formulario, width=12, background='darkblue', foreground='white', borderwidth=2)
-entry_fecha_alta.grid(row=6, column=1, padx=10, pady=5)
+entry_fecha_alta.grid(row=0, column=5, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Fecha Baja").grid(row=7, column=0, padx=10, pady=5)
+tk.Label(frame_formulario, text="Fecha Baja", bg="lightblue").grid(row=1, column=4, padx=10, pady=5)
 entry_fecha_baja = DateEntry(frame_formulario, width=12, background='darkblue', foreground='white', borderwidth=2)
-entry_fecha_baja.grid(row=7, column=1, padx=10, pady=5)
+entry_fecha_baja.grid(row=1, column=5, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Situación").grid(row=8, column=0, padx=10, pady=5)
+tk.Label(frame_formulario, text="Situación", bg="lightblue").grid(row=2, column=4, padx=10, pady=5)
 combo_situacion = ttk.Combobox(frame_formulario, values=["Activa", "Suspendida", "Revocada", "Baja"])
-combo_situacion.grid(row=8, column=1, padx=10, pady=5)
+combo_situacion.grid(row=2, column=5, padx=10, pady=5)
 
-tk.Label(frame_formulario, text="Comentarios").grid(row=9, column=0, padx=10, pady=5)
+# Comentarios sobre cada operador
+tk.Label(frame_formulario, text="Comentarios", bg="lightblue").grid(row=3, column=0, padx=10, pady=5)
 entry_comentarios = tk.Entry(frame_formulario)
-entry_comentarios.grid(row=9, column=1, padx=10, pady=5)
+entry_comentarios.grid(row=3, column=1, columnspan=5, padx=10, pady=5, sticky="ew")
 
 # Botones para las operaciones CRUD
-frame_botones = tk.Frame(root)
+frame_botones = tk.Frame(root, bg="lightblue")
 frame_botones.pack(pady=10)
 
 btn_agregar = tk.Button(frame_botones, text="Agregar", command=agregar_operador)
@@ -213,17 +242,31 @@ btn_limpiar = tk.Button(frame_botones, text="Limpiar", command=limpiar_campos)
 btn_limpiar.grid(row=0, column=3, padx=10)
 
 # Lista de operadores (Tabla)
-frame_lista = tk.Frame(root)
+frame_lista = tk.Frame(root, bg="lightblue")
 frame_lista.pack(pady=20)
 
 columnas = ("#", "Registro", "Nombre", "Categoría", "Dirección", "Teléfono", "Email", "Fecha Alta", "Fecha Baja", "Situación", "Comentarios")
 lista_operadores = ttk.Treeview(frame_lista, columns=columnas, show="headings")
 for col in columnas:
     lista_operadores.heading(col, text=col)
+
+# Ajuste del ancho de las columnas para que todas se vean
+lista_operadores.column("#", width=30)
+lista_operadores.column("Registro", width=80)
+lista_operadores.column("Nombre", width=120)
+lista_operadores.column("Categoría", width=80)
+lista_operadores.column("Dirección", width=150)
+lista_operadores.column("Teléfono", width=100)
+lista_operadores.column("Email", width=150)
+lista_operadores.column("Fecha Alta", width=80)
+lista_operadores.column("Fecha Baja", width=80)
+lista_operadores.column("Situación", width=100)
+lista_operadores.column("Comentarios", width=150)
+
 lista_operadores.pack()
 
 # Evento para seleccionar un operador al hacer clic en la tabla
 lista_operadores.bind("<<TreeviewSelect>>", seleccionar_operador)
 
-# Iniciar la aplicación
+# Inicio de la aplicación
 root.mainloop()
