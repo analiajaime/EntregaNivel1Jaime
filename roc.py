@@ -4,8 +4,6 @@ from tkinter import ttk
 from tkcalendar import DateEntry
 
 # *****************MODELO********************
-operadores = []
-
 def agregar_operador_modelo(registro, nombre, categoria, direccion, telefono, email, fecha_alta, fecha_baja, situacion, comentarios):
     if registro and nombre and categoria and direccion and telefono and email and fecha_alta and situacion:
         operadores.append({
@@ -126,7 +124,7 @@ def seleccionar_operador(event):
         entry_comentarios.delete(0, tk.END)
         entry_comentarios.insert(0, operador["Comentarios"])
 
-# VISTA
+# *********************************VISTA**************************************
 def limpiar_campos():
     entry_registro.delete(0, tk.END)
     entry_nombre.delete(0, tk.END)
@@ -160,7 +158,7 @@ def actualizar_lista():
     lista_operadores.column("Situación", width=100)
     lista_operadores.column("Comentarios", width=150)
 
-# Salir de la aplicación
+# *********Salir de la aplicación*********
 def salir(event):
     root.quit()
 
@@ -170,7 +168,7 @@ root.title("Registro de Operadores de Cambio")
 
 # Establecer color de fondo y tamaño de ventana
 root.configure(bg="lightblue") # Color de fondo
-root.geometry("1000x600")  # Ancho x Alto 
+root.geometry("1200x700")  # Ancho x Alto 
 
 # Asignar la tecla 'ESC' para salir
 root.bind('<Escape>', salir) # Salir con la tecla 'ESC'
@@ -263,8 +261,7 @@ lista_operadores.column("Comentarios", width=150)
 
 lista_operadores.pack()
 
-# Evento para seleccionar un operador al hacer clic en la tabla
 lista_operadores.bind("<<TreeviewSelect>>", seleccionar_operador)
 
-# Inicio de la aplicación
+# ***************Inicio de la aplicación***********************
 root.mainloop()
