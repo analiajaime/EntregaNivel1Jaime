@@ -4,6 +4,8 @@ from tkinter import ttk
 from tkcalendar import DateEntry
 
 # *****************MODELO********************
+operadores = []	# Lista de operadores - sin esto, no carga la lista de operadores
+
 def agregar_operador_modelo(registro, nombre, categoria, direccion, telefono, email, fecha_alta, fecha_baja, situacion, comentarios):
     if registro and nombre and categoria and direccion and telefono and email and fecha_alta and situacion:
         operadores.append({
